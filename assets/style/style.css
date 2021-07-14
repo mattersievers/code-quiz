@@ -1,0 +1,15 @@
+*{
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+}
+
+header p{
+    margin-left: auto;
+}
+
+main {
+    text-align: center;
+}
