@@ -13,3 +13,8 @@ header p{
 main {
     text-align: center;
 }
+
+.button-collection{
+    display: flex;
+    flex-direction: column;
+}

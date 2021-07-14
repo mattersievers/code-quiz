@@ -1,11 +1,47 @@
 var pageContentEl = document.querySelector("#page-content");
+var buttonCollectEl = document.querySelector("#button-collection")
+var questionCounter =0;
+
+var questions = ["question 1", "question 2", "question 3"];
+var answers = [
+    "answer1a",
+    "answer1b",
+    "answer1c",
+    "answer1d",
+
+    "answer2a",
+    "answer2b",
+    "answer2c",
+    "answer2d",
+
+    "answer3a",
+    "answer3b",
+    "answer3c",
+    "answer3d"]
 
 var beginQuiz = function (){
+  //remove p element
+  var removeP = document.querySelector("#begin-text");
+  var removeBtn = document.querySelector("#start-game");
+  removeP.remove();
+  removeBtn.remove();
+  //Begin timer
 
+  //Load question
+  nextQuestion();
 };
 
 var nextQuestion = function () {
 
+ document.querySelector("#main-text").textContent = questions[questionCounter];
+ for (i=4*questionCounter; i< 4*questionCounter+4; i++) {
+ var buttonEl = document.createElement("button");
+ buttonEl.textContent = answers[i];
+ buttonEl.className = "btn"
+ buttonCollectEl.appendChild(buttonEl);
+
+ }
+ return buttonCollectEl;
 };
 
 //a button is pressed
@@ -15,22 +51,21 @@ var buttonHandler = function(event) {
 
     if(targetEl.matches(".begin-btn")){
        beginQuiz();
-       nextQuestion();
     }
     
-    if(targetEl.matches("1")){
+    if(targetEl.matches(".winner")){
      //add point
      nextQuestion();
     }
 
-    if(targetEl.matches("0"))
+    if(targetEl.matches(".wrong"))
     //subtract time
     nextQuestion();
 }
 
 
 //event listener for button clicks
-pageContentEl.addEventListener("click", buttonHandler)
+buttonCollectEl.addEventListener("click", buttonHandler)
 
 
 /* when you click start, quiz begins
@@ -60,5 +95,4 @@ High Score screen
 - clear high scores button
 
 
-create objects for each question. question in text content. answer1,...,answer4 are properties.
-*/
+ */
