@@ -18,3 +18,7 @@ main {
     display: flex;
     flex-direction: column;
 }
+
+.btn {
+margin: 10px auto;
+}

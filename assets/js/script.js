@@ -1,25 +1,37 @@
-var pageContentEl = document.querySelector("#page-content");
-var buttonCollectEl = document.querySelector("#button-collection")
-var questionCounter =0;
+let pageContentEl = document.querySelector("#page-content");
+let buttonCollectEl = document.querySelector("#button-collection")
+let questionCounter = 0;
+let playerScore = 0;
 
-var questions = ["question 1", "question 2", "question 3"];
-var answers = [
-    "answer1a",
-    "answer1b",
-    "answer1c",
-    "answer1d",
+let questionList = [
+  {
+    question: "question 1 text ",
+    answers: ["answer 1 text", "answer 2 text","answer 3 text","answer 4 text"],
+    answerStat: [true, false, false, false],
+  },
+  
+  {
+    question: "question 2 text ",
+    answers: ["q2 answer 1 text", "q2 answer 2 text","q2 answer 3 text","q2 answer 4 text"],
+    answerStat: [false, true, false, false],
+  },
+  
+  {
+    question: "question 3 text ",
+    answers: ["q3 answer 1 text", "q3 answer 2 text","q3 answer 3 text","q3 answer 4 text"],
+    answerStat: [false, false, true, false],
+  },
+];
 
-    "answer2a",
-    "answer2b",
-    "answer2c",
-    "answer2d",
+let removeQuestion = function() {
+  for (var i = 0; i < questionList[questionCounter].answers.length; i++) {
+    var removedQuest = document.querySelector(".ans-btn");
+    removedQuest.remove();
+  }
+  questionCounter++;
+};
 
-    "answer3a",
-    "answer3b",
-    "answer3c",
-    "answer3d"]
-
-var beginQuiz = function (){
+let beginQuiz = function (){
   //remove p element
   var removeP = document.querySelector("#begin-text");
   var removeBtn = document.querySelector("#start-game");
@@ -31,17 +43,18 @@ var beginQuiz = function (){
   nextQuestion();
 };
 
-var nextQuestion = function () {
+let nextQuestion = function () {
 
- document.querySelector("#main-text").textContent = questions[questionCounter];
- for (i=4*questionCounter; i< 4*questionCounter+4; i++) {
- var buttonEl = document.createElement("button");
- buttonEl.textContent = answers[i];
- buttonEl.className = "btn"
- buttonCollectEl.appendChild(buttonEl);
+ document.querySelector("#main-text").textContent = questionList[questionCounter].question;
 
- }
- return buttonCollectEl;
+ for (var i = 0; i < questionList[questionCounter].answers.length; i++) {
+  let buttonEl = document.createElement("button");
+  buttonEl.textContent = questionList[questionCounter].answers[i];
+  buttonEl.setAttribute("validate-answer", questionList[questionCounter].answerStat[i]);
+  buttonEl.className =  "btn ans-btn";
+  buttonCollectEl.appendChild(buttonEl);
+  } 
+  ;
 };
 
 //a button is pressed
@@ -53,14 +66,17 @@ var buttonHandler = function(event) {
        beginQuiz();
     }
     
-    if(targetEl.matches(".winner")){
-     //add point
+    else if(targetEl.getAttribute("validate-answer")){
+     playerScore++;
+     removeQuestion();
      nextQuestion();
     }
 
-    if(targetEl.matches(".wrong"))
-    //subtract time
+    else if (!targetEl.getAttribute("validate-answer")) {
+    //remove 10 sec
+    removeQuestion();
     nextQuestion();
+    }
 }
 
 
