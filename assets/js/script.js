@@ -26,21 +26,29 @@ let questionList = [
 
 function startTime () {
   let gameTimer = setInterval(function() {
+    //wrong answer and time left
     if (gameTime > 1 && adjustTime) {
       document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " seconds";
       gameTime = gameTime - 10;
       adjustTime = false;
+      //time left
     } else if (gameTime > 1 && !adjustTime) {
       document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " seconds";
       gameTime--;
+      // one second left
     } else if  (gameTime === 1) {
       document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " second";
       gameTime--;
-    } else {
+      //no time left and questions still remain
+    } else if (questionCounter < questionList.length) {
       alert("Time is up!");
       clearInterval(gameTimer);
       endGame();
-    }   
+      //no time and no questions remain
+    } else {
+      document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " seconds";
+      clearInterval(gameTimer)
+    }
   }, 1000); 
 };
 
@@ -54,9 +62,9 @@ let removeQuestion = function() {
 
 let beginQuiz = function (){
   //remove p element
-  let removeP = document.querySelector("#begin-text");
+  let emptyP = document.querySelector("#begin-text");
   let removeBtn = document.querySelector("#start-game");
-  removeP.remove();
+  emptyP.textContent = "";
   removeBtn.remove();
   //Begin timer
   startTime();
@@ -98,14 +106,11 @@ let buttonHandler = function(event) {
     //Click correct solution
      else if(targetEl.getAttribute("validate-answer") === "true"){
      playerScore++;
-     alert("right");
      removeQuestion();
      nextQuestion();
     }
     //Click incorrect solution
     else if (targetEl.getAttribute("validate-answer") === "false") {
-      debugger;
-    alert("wrong");  
     //Adjust time by 10 sec
     adjustTime = true;
     removeQuestion();
@@ -118,33 +123,40 @@ let buttonHandler = function(event) {
 buttonCollectEl.addEventListener("click", buttonHandler);
 
 let endGame = function (){
-  alert("game end");
+  //Load final screen text
+  document.querySelector("#main-text").textContent = "The Quiz Is Done!";
+  document.querySelector("#begin-text").textContent = "Your final score is: " + playerScore + "!";
+  
+  //Build form
+  let formEl = document.createElement("form");
+  let labelEl = document.createElement("label");
+  labelEl.textContent = "Input initials:";
+  let inputEl = document.createElement("input");
+  inputEl.textContent = "Your initials";
+  inputEl.setAttribute("type","text");
+  inputEl.setAttribute("maxlength",2);
+  let buttonEl = document.createElement("button");
+  buttonEl.setAttribute("type", "submit");
+  buttonEl.className = "btn initial-btn";
+  buttonEl.textContent = "Submit Initials";
+
+  //Append elements to form and append form to page-content
+  formEl.appendChild(labelEl);
+  formEl.appendChild(inputEl);
+  formEl.appendChild(buttonEl);
+
+  pageContentEl.appendChild(formEl);
+  removeQuestion();
+
 }
 
-/* when you click start, quiz begins
-quiz begin
-  - empty p text
-  - begin timer 75 sec
-    load question function 
-      -load question in h1 element
-      -delete start button (or previous solution)
-      -add four buttons
+/* 
 
-eventlistener for solutions/button
-question submit function
-  - checks answer
-  - tells player correct/incorrect
-  - keeps score adds a point or subtracts 10s time
-  - load question function
-
-
-when time is 0 or all questions answered, end game
-- insert h1 "That's All Folks!" and p text "Enter your initials"
-- input
-- submit button
+input initials and save to localStorage
 
 High Score screen
 - go back button
+- retrieves localStorage scores
 - clear high scores button
 
 
