@@ -2,6 +2,7 @@ let pageContentEl = document.querySelector("#page-content");
 let buttonCollectEl = document.querySelector("#button-collection")
 let questionCounter = 0;
 let playerScore = 0;
+ 
 
 let questionList = [
   {
@@ -23,9 +24,28 @@ let questionList = [
   },
 ];
 
+function startTime () {
+  let gameTime = 75;
+
+  let gameTimer = setInterval(function() {
+    
+    if (gameTime > 1) {
+      document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " seconds";
+      gameTime--;
+    } else if  (gameTime === 1) {
+      document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " second";
+      gameTime--;
+    } else {
+      alert("Time is up!");
+      clearInterval(gameTimer);
+      endGame();
+    }
+  }, 1000);
+};
+
 let removeQuestion = function() {
-  for (var i = 0; i < questionList[questionCounter].answers.length; i++) {
-    var removedQuest = document.querySelector(".ans-btn");
+  for (let i = 0; i < questionList[questionCounter].answers.length; i++) {
+    let removedQuest = document.querySelector(".ans-btn");
     removedQuest.remove();
   }
   questionCounter++;
@@ -33,34 +53,38 @@ let removeQuestion = function() {
 
 let beginQuiz = function (){
   //remove p element
-  var removeP = document.querySelector("#begin-text");
-  var removeBtn = document.querySelector("#start-game");
+  let removeP = document.querySelector("#begin-text");
+  let removeBtn = document.querySelector("#start-game");
   removeP.remove();
   removeBtn.remove();
   //Begin timer
-
+  startTime();
   //Load question
   nextQuestion();
 };
 
 let nextQuestion = function () {
 
+if (questionCounter < questionList.length) {
  document.querySelector("#main-text").textContent = questionList[questionCounter].question;
 
- for (var i = 0; i < questionList[questionCounter].answers.length; i++) {
+ for (let i = 0; i < questionList[questionCounter].answers.length; i++) {
   let buttonEl = document.createElement("button");
   buttonEl.textContent = questionList[questionCounter].answers[i];
   buttonEl.setAttribute("validate-answer", questionList[questionCounter].answerStat[i]);
   buttonEl.className =  "btn ans-btn";
   buttonCollectEl.appendChild(buttonEl);
   } 
-  ;
+} 
+else {
+  endGame();
+}
 };
 
 //a button is pressed
-var buttonHandler = function(event) {
+let buttonHandler = function(event) {
     //get target from event
-    var targetEl = event.target;
+    let targetEl = event.target;
 
     if(targetEl.matches(".begin-btn")){
        beginQuiz();
@@ -77,12 +101,15 @@ var buttonHandler = function(event) {
     removeQuestion();
     nextQuestion();
     }
-}
+};
 
 
 //event listener for button clicks
-buttonCollectEl.addEventListener("click", buttonHandler)
+buttonCollectEl.addEventListener("click", buttonHandler);
 
+let endGame = function (){
+  alert("game end");
+}
 
 /* when you click start, quiz begins
 quiz begin
