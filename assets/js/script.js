@@ -13,7 +13,7 @@ let playerInfo = {
 };
 
 let savedInfo = [];
-for (var i = 0; i < 10 ; i++){
+for (let i = 0; i < 10 ; i++){
   savedInfo[i] = {
     initials: "__",
     highScore: 0
@@ -163,11 +163,13 @@ let endGame = function (){
   //Build form
   let labelEl = document.createElement("label");
   labelEl.textContent = "Input initials:";
+  labelEl.setAttribute("name","initials");
   let inputEl = document.createElement("input");
   inputEl.textContent = "Your initials";
   inputEl.setAttribute("type","text");
   inputEl.setAttribute("maxlength",2);
   inputEl.setAttribute("name","initials");
+  let linebreak = document.createElement("br");
   let buttonEl = document.createElement("button");
   buttonEl.setAttribute("type", "submit");
   buttonEl.className = "btn initial-btn";
@@ -176,6 +178,7 @@ let endGame = function (){
   //Append elements to form and append form to page-content
   formEl.appendChild(labelEl);
   formEl.appendChild(inputEl);
+  formEl.appendChild(linebreak);
   formEl.appendChild(buttonEl);
 
   buttonCollectEl.appendChild(formEl);
@@ -186,7 +189,25 @@ let endGame = function (){
 };
 
 let highScoreScreen = function(){
+  //remove buttons
+  let removeBtn = document.querySelector(".btn");
+  removeBtn.remove();
+  if (localStorage.getItem("savedInfo")){
+    savedInfo = localStorage.getItem("savedInfo");
+    savedInfo = JSON.parse(savedInfo);
+  }
 
+  document.querySelector("#main-text").textContent ="High Scores"
+  // create list elements for stats and append to p element
+  let highListEl = document.createElement("ul");
+
+  for (let i=0; i < 10; i++){
+    let listEl = document.createElement("li");
+    listEl.innerHTML = 
+    (i+1) + ". Player intials: " + savedInfo[i].initials + "<span>" + "Score: " + savedInfo[i].highScore + "</span>";
+    highListEl.appendChild(listEl);
+  }  
+  buttonCollectEl.appendChild(highListEl);
 };
 
 let saveGame = function (event) {
@@ -221,9 +242,15 @@ let saveGame = function (event) {
     localStorage.setItem("savedInfo", JSON.stringify(savedInfo));  
   }
   else {
-    alert("Sorry. You did not make the High Score List. Study a bit and try again.")
+    alert("Sorry. You did not make the High Score List. Study a bit more and try again.")
     localStorage.setItem("savedInfo", JSON.stringify(savedInfo)); 
   }
+  
+  var removeLabel = document.querySelector("label[name='initials']");
+  var removeInput = document.querySelector("input[name='initials']");
+  removeInput.remove();
+  removeLabel.remove();
+  highScoreScreen();
 };
 
 //event listener for button clicks

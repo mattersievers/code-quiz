@@ -40,15 +40,19 @@ header p{
   justify-content: space-around;
 }
 
+#main-text {
+  font-size: 2vw;
+}
 #begin-text{
   text-align: center;
-  font-size: 1vw;
+  font-size: 1.5vw;
   width: 40%;
 }
 
 .button-collection{
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .btn{
@@ -67,25 +71,43 @@ header p{
   margin: 15px auto;
 }
 
-/* Main Content Styling of Intial Submission Screen*/
+/* Main Content Styling of Player Intial Submission Screen*/
 form {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-label {
-  margin: 10px;
+label, input {
+  
+  text-align: center;
+  padding: 10px;
+}
+label{
+  font-size: 1.2vw;
 }
 
 input{
+  width: 45%;
   text-align: center;
   background-color: azure;
   color: var(--color-one);
-  margin: 10px;
+  text-shadow: none;
 }
 
 .initial-btn{
   margin: 10px;
+}
+/*Styling for High Score Screen*/
+li{
+  margin: 10px;
+  list-style: none;
+  font-size: 1.2vw;
+}
+
+li span {
+  margin-left: 100px;
 }
 
 /*Footer Stylings*/
