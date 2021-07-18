@@ -53,9 +53,14 @@ label {
 
 input{
   background-color: azure;
+  color: var(--color-one);
   margin: 10px;
 }
 
 .initial-btn{
   margin: 10px;
+}
+
+footer p{
+  text-align: center;
 }

@@ -115,25 +115,37 @@ let nextQuestion = function () {
 
 //a button is pressed
 let buttonHandler = function(event) {
-    //get target from event
-    let targetEl = event.target;
-    // Click start button
-    if(targetEl.matches(".begin-btn")){
-       beginQuiz();
-    }
-    //Click correct solution
-     else if(targetEl.getAttribute("validate-answer") === "true"){
-     playerScore++;
-     removeQuestion();
-     nextQuestion();
-    }
-    //Click incorrect solution
-    else if (targetEl.getAttribute("validate-answer") === "false") {
+  //get target from event
+  let targetEl = event.target;
+  // Click start button
+  if(targetEl.matches(".begin-btn")){
+      beginQuiz();
+  }
+  //Click correct solution
+  else if(targetEl.getAttribute("validate-answer") === "true"){
+    playerScore++;
+    setTimeout (function(){ 
+      document.querySelector("#response-box").textContent = "CORRECT!"
+    },50);
+    setTimeout(function(){ 
+      document.querySelector("#response-box").textContent = ""
+      removeQuestion();
+      nextQuestion();
+    }, 700);
+  }
+  //Click incorrect solution
+  else if (targetEl.getAttribute("validate-answer") === "false") {
     //Adjust time by 10 sec
     adjustTime = true;
-    removeQuestion();
-    nextQuestion();
-    }
+    setTimeout (function(){ 
+      document.querySelector("#response-box").textContent = "ISN'T THAT CUTE? BUT IT'S WRONG!"
+    },50);
+    setTimeout(function(){ 
+      document.querySelector("#response-box").textContent = ""
+      removeQuestion();
+      nextQuestion();
+    }, 700);
+  }
 };
 
 
@@ -184,6 +196,7 @@ let saveGame = function (event) {
     alert("Congratulation! You made the High Score List!")
     //Retrieve intials from input and highScore from player score
     playerInfo.initials = document.querySelector("input[name='initials']").value;
+    playerInfo.initials = playerInfo.initials.toUpperCase();
     // Reject blank submissions.
     if (!playerInfo.initials){
       alert("Please enter intials to continue.");
