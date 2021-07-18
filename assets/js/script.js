@@ -2,6 +2,9 @@
 let pageContentEl = document.querySelector("#page-content");
 let buttonCollectEl = document.querySelector("#button-collection");
 let formEl = document.createElement("form");
+formEl.setAttribute("name","initials");
+let headerEl = document.querySelector("#header");
+  
 //Set initial parameters
 let gameTime = 75;
 let questionCounter = 0;
@@ -190,8 +193,6 @@ let endGame = function (){
 
 let highScoreScreen = function(){
   //remove buttons
-  let removeBtn = document.querySelector(".btn");
-  removeBtn.remove();
   if (localStorage.getItem("savedInfo")){
     savedInfo = localStorage.getItem("savedInfo");
     savedInfo = JSON.parse(savedInfo);
@@ -209,6 +210,22 @@ let highScoreScreen = function(){
   }  
   buttonCollectEl.appendChild(highListEl);
 };
+
+let highScoreScreenHandler = function(event){
+  if(event.target.matches("#high-score-btn")){
+    let removeP = document.querySelector("#begin-text");
+    removeP.remove();
+    let removeBtn = document.querySelector(".btn");
+    removeBtn.remove();
+    if (document.querySelector(".ans-btn")){ 
+      for(var i=0; i<3; i++) {
+        let removeAnsBtn = document.querySelector(".ans-btn");
+        removeAnsBtn.remove();
+      }  
+    }  
+    highScoreScreen();
+  }  
+}
 
 let saveGame = function (event) {
   event.preventDefault();
@@ -245,15 +262,13 @@ let saveGame = function (event) {
     alert("Sorry. You did not make the High Score List. Study a bit more and try again.")
     localStorage.setItem("savedInfo", JSON.stringify(savedInfo)); 
   }
-  
-  var removeLabel = document.querySelector("label[name='initials']");
-  var removeInput = document.querySelector("input[name='initials']");
-  removeInput.remove();
-  removeLabel.remove();
+  var removeForm = document.querySelector("form[name='initials']");
+  removeForm.remove();
   highScoreScreen();
 };
 
 //event listener for button clicks
+headerEl.addEventListener("click", highScoreScreenHandler);
 
 buttonCollectEl.addEventListener("click", buttonHandler);
 

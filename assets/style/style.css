@@ -42,6 +42,8 @@ header p{
 
 #main-text {
   font-size: 2vw;
+  padding: 10px;
+  border-bottom: 1.5px solid black ;
 }
 #begin-text{
   text-align: center;
@@ -77,6 +79,9 @@ form {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border: 1.5px dotted var(--color-two);
+  border-radius: 8px;
+  box-shadow: 10px 5px 5px var(--color-one);
 }
 
 label, input {
