@@ -20,7 +20,6 @@ for (var i = 0; i < 10 ; i++){
   }
 };  
 
-
 // List of questions. answerStat = true gives the correlating correct solution.
 let questionList = [
   {
