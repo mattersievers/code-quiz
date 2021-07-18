@@ -1,5 +1,13 @@
 *{
     box-sizing: border-box;
+    background-color: var(--color-three);
+    color: var(--color-two);
+}
+
+:root{
+    --color-one: #171738;
+    --color-two: #FFD9CE;
+    --color-three: #593C8F;
 }
 
 header {
@@ -19,6 +27,34 @@ main {
     flex-direction: column;
 }
 
-.btn {
-margin: 10px auto;
+.btn{
+  background-color: var(--color-one);
+  color: var(--color-two);
+  font-size: larger;
+  border-radius: 8px;
+}
+.begin-btn {
+  margin: 10px auto;
+}
+
+.ans-btn{
+  margin: 15px auto;
+}
+
+
+form {
+  display: flex;
+  justify-content: center;
+}
+
+label {
+  margin: 10px;
+}
+
+input{
+  margin: 10px;
+}
+
+.initial-btn{
+  margin: 10px;
 }
