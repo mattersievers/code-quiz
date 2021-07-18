@@ -83,6 +83,42 @@ var buttonHandler = function(event) {
 //event listener for button clicks
 buttonCollectEl.addEventListener("click", buttonHandler)
 
+let saveGame = function (event) {
+  event.preventDefault();
+  //Get info from storage if it exists
+  if (localStorage.getItem("savedInfo")){
+  savedInfo = localStorage.getItem("savedInfo");
+  savedInfo = JSON.parse(savedInfo);
+  }
+ 
+  //Check to see if player score beats lowest highScore out of the 10 scores
+  if (playerScore > savedInfo[9].highScore) {
+    alert("Congratulation! You made the High Score List!")
+    //Retrieve intials from input and highScore from player score
+    playerInfo.initials = document.querySelector("input[name='initials']").value;
+    playerInfo.initials = playerInfo.initials.toUpperCase();
+    // Reject blank submissions.
+    if (!playerInfo.initials){
+      alert("Please enter intials to continue.");
+      return false;
+    }
+    playerInfo.highScore = playerScore;  
+    //push player stats into saves stats
+    savedInfo.push(playerInfo);
+    //Sort by highScore
+    savedInfo.sort(function(a, b) {return b.highScore - a.highScore});
+    //Reject the 11th so it saves 10 entries
+    savedInfo.splice(10,1);
+    //Save the new stat list
+    console.log(savedInfo); 
+    console.log(JSON.stringify(savedInfo));
+    localStorage.setItem("savedInfo", JSON.stringify(savedInfo));  
+  }
+  else {
+    alert("Sorry. You did not make the High Score List. Study a bit and try again.")
+    localStorage.setItem("savedInfo", JSON.stringify(savedInfo)); 
+  }
+};
 
 /* when you click start, quiz begins
 quiz begin
