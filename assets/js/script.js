@@ -124,9 +124,12 @@ let buttonHandler = function(event) {
   //Click correct solution
   else if(targetEl.getAttribute("validate-answer") === "true"){
     playerScore++;
-    setTimeout (function(){ 
-      document.querySelector("#response-box").textContent = "CORRECT!"
+    // Delayed confirmation response after player click
+    setTimeout (function(){
+      document.querySelector("#response-box").style.color = "#46eb34";
+      document.querySelector("#response-box").textContent = "CORRECT!";
     },50);
+    //Delayed deleting of text, so response stays up for 700 minus 50 or 650ms
     setTimeout(function(){ 
       document.querySelector("#response-box").textContent = ""
       removeQuestion();
@@ -137,9 +140,12 @@ let buttonHandler = function(event) {
   else if (targetEl.getAttribute("validate-answer") === "false") {
     //Adjust time by 10 sec
     adjustTime = true;
+    // Delayed denial response after player click
     setTimeout (function(){ 
+      document.querySelector("#response-box").style.color = "red";
       document.querySelector("#response-box").textContent = "ISN'T THAT CUTE? BUT IT'S WRONG!"
     },50);
+    // Delayed deleting of response
     setTimeout(function(){ 
       document.querySelector("#response-box").textContent = ""
       removeQuestion();
@@ -226,10 +232,9 @@ buttonCollectEl.addEventListener("click", buttonHandler);
 
 formEl.addEventListener("submit", saveGame);
 /* 
-- needs to alert right/wrong 
 - put in some real JS questions
 
-input initials and save to localStorage
+- shuffle question order
 
 High Score screen
 - go back button
