@@ -38,7 +38,7 @@ let questionList = [
   },
   
   {
-    question: "What would array.length return for the array = [1,2,3,4,5,6,7,8,9]",
+    question: "What would array.length return for the given array = [1,2,3,4,5,6,7,8,9]",
     answers: [
       "a) The number 10 which represents the number of elements in the array.", 
       "b) The number 9 which represents the number of elements in the array.",
@@ -48,7 +48,7 @@ let questionList = [
   },
   
   {
-    question: "What would array[5] return for the array = [1,2,3,4,5,6,7,8,9]",
+    question: "What would array[5] return for the given array = [1,2,3,4,5,6,7,8,9]",
     answers: [
       "a) The number 5 from the array.", 
       "b) [1,2,3,4,5]",
@@ -67,7 +67,7 @@ let questionList = [
   },
 
   {
-    question: "let string = 'ONLY AN EXAMPLE'. How could one return 'only on example'?",
+    question: "let string = 'ONLY AN EXAMPLE'. How could one return 'only an example'?",
     answers: [
       "a) return string.toUpperCase;", 
       "b) return string.toSmallCase;",
@@ -83,6 +83,42 @@ let questionList = [
       "c) It would store string3 = string1.string2",
       "d) It would accomplish an error message."],
     answerStat: [true, false, false, false],
+  },
+  {
+    question: "let animals = ['beetle','kangaroo','rabbit']. What would animals.push('lizard') produce?",
+    answers: [
+      "a) It would push lizard onto the array in alphabetical order: ['beetle','kangaroo','lizard','rabbit']", 
+      "b) It would push lizard onto the end of the array: ['beetle','kangaroo','rabbit','lizard']",
+      "c) It would push lizard onto the beginning of the array: ['lizard','beetle','kangaroo','rabbit']",
+      "d) It would produce an error message."],
+    answerStat: [false, true, false, false],
+  },
+  {
+    question: "let animals = ['beetle','kangaroo','rabbit','lizard']. What would animals[1] return?",
+    answers: [
+      "a) 'beetle'", 
+      "b) 'lizard'",
+      "c) 'kangaroo'",
+      "d) It would return an error message."],
+    answerStat: [false, false, true, false],
+  },
+  {
+    question: "What would the loop for(var i =0; i < 10; i++){console.log(i);} return?",
+    answers: [
+      "a) The array [0,1,2,3,4,5,6,7,8,9]", 
+      "b) The numbers 1 2 3 4 5 6 7 8 9 10 each on a new line.",
+      "c) The numbers 0 1 2 3 4 5 6 7 8 9 each on a new line.",
+      "d) The array [1,2,3,4,5,6,7,8,9,10]"],
+    answerStat: [false, false, true, false],
+  },
+  {
+    question: "What would the loop for(var i =0; i < 10; i++){console.log(i+1);} return?",
+    answers: [
+      "a) The array [0,1,2,3,4,5,6,7,8,9]", 
+      "b) The numbers 1 2 3 4 5 6 7 8 9 10 each on a new line.",
+      "c) The numbers 0 1 2 3 4 5 6 7 8 9 each on a new line.",
+      "d) The array [1,2,3,4,5,6,7,8,9,10]"],
+    answerStat: [false, true, false, false],
   },
 ];
 

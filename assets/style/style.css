@@ -46,6 +46,8 @@ header p{
   padding: 10px;
   border-bottom: 1.5px solid black ;
   margin: 10px auto;
+  text-align: center;
+  width: 50%;
 }
 #small-text{
   text-align: center;
