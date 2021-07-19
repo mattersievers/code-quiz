@@ -24,7 +24,8 @@ header {
     align-items: center;
 }
 
-header a { 
+header button { 
+  padding: 5px;
   margin: 50px auto 50px 50px;
 }
 
@@ -40,12 +41,12 @@ header p{
   justify-content: space-around;
 }
 
-#main-text {
+#large-text {
   font-size: 2vw;
   padding: 10px;
   border-bottom: 1.5px solid black ;
 }
-#begin-text{
+#small-text{
   text-align: center;
   font-size: 1.5vw;
   width: 40%;
@@ -115,6 +116,13 @@ li span {
   margin-left: 100px;
 }
 
+.go-back-btn{
+  margin: 10px;
+}
+
+.reset-score-btn{
+  margin: 10px;
+}
 /*Footer Stylings*/
 footer {
   display: flex;

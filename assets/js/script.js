@@ -4,7 +4,9 @@ let buttonCollectEl = document.querySelector("#button-collection");
 let formEl = document.createElement("form");
 formEl.setAttribute("name","initials");
 let headerEl = document.querySelector("#header");
-  
+let titleEl = document.querySelector("#large-text");
+let textEl = document.querySelector("#small-text");
+let scoreListEl = document.querySelector("#score-collection");
 //Set initial parameters
 let gameTime = 75;
 let questionCounter = 0;
@@ -44,13 +46,30 @@ let questionList = [
   },
 ];
 
+//shuffle an array
+var shuffle = function (array) {
+  for (var i = 0; i < array.length; i++){
+  var j = randomNumber(0,array.length-1)
+  var temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
+  }
+  return array;
+};
+//random number generator
+var randomNumber = function (min,max){
+  var value = Math.floor(Math.random()*(max - min + 1) + min);
+  
+  return value;
+};
+
 //starts timer
 function startTime () {
   let gameTimer = setInterval(function() {
     //wrong answer and time left
     if (gameTime > 1 && adjustTime) {
       document.querySelector("#time-display").textContent = "Time remaining: " + gameTime + " seconds";
-      gameTime = gameTime - 10;
+      gameTime = gameTime - 11;
       adjustTime = false;
       //time left
     } else if (gameTime > 1 && !adjustTime) {
@@ -83,9 +102,8 @@ let removeQuestion = function() {
 
 let beginQuiz = function (){
   //remove p element
-  let emptyP = document.querySelector("#begin-text");
   let removeBtn = document.querySelector("#start-game");
-  emptyP.textContent = "";
+  textEl.textContent = "";
   removeBtn.remove();
   //Begin timer
   startTime();
@@ -98,7 +116,7 @@ let nextQuestion = function () {
   if (questionCounter < questionList.length) {
   
     //Question text changed
-  document.querySelector("#main-text").textContent = questionList[questionCounter].question;
+  titleEl.textContent = questionList[questionCounter].question;
   
   //Buttons generated for answers
   for (let i = 0; i < questionList[questionCounter].answers.length; i++) {
@@ -118,14 +136,17 @@ let nextQuestion = function () {
 
 //a button is pressed
 let buttonHandler = function(event) {
-  //get target from event
+    //get target from event
   let targetEl = event.target;
   // Click start button
   if(targetEl.matches(".begin-btn")){
-      beginQuiz();
+    shuffle(questionList);  
+    beginQuiz();
+
   }
   //Click correct solution
   else if(targetEl.getAttribute("validate-answer") === "true"){
+    //Increase score
     playerScore++;
     // Delayed confirmation response after player click
     setTimeout (function(){
@@ -148,20 +169,31 @@ let buttonHandler = function(event) {
       document.querySelector("#response-box").style.color = "red";
       document.querySelector("#response-box").textContent = "ISN'T THAT CUTE? BUT IT'S WRONG!"
     },50);
-    // Delayed deleting of response
-    setTimeout(function(){ 
-      document.querySelector("#response-box").textContent = ""
-      removeQuestion();
-      nextQuestion();
-    }, 700);
+      // Delayed deleting of response
+      setTimeout(function(){ 
+        document.querySelector("#response-box").textContent = ""
+        removeQuestion();
+        nextQuestion();
+      }, 700);
+  }
+  //Click go back button
+  else if(targetEl.matches(".go-back-btn")){
+    window.location="./index.html";
+  }
+
+  //Click clear scores button
+  else if(targetEl.matches(".reset-score-btn")){
+    localStorage.clear();
   }
 };
 
 
 let endGame = function (){
+  //Remove header
+  headerEl.remove();
   //Load final screen text
-  document.querySelector("#main-text").textContent = "The Quiz Is Done!";
-  document.querySelector("#begin-text").textContent = "Your final score is: " + playerScore + "!";
+  titleEl.textContent = "The Quiz Is Done!";
+  textEl.textContent = "Your final score is: " + playerScore + "!";
   
   //Build form
   let labelEl = document.createElement("label");
@@ -192,29 +224,47 @@ let endGame = function (){
 };
 
 let highScoreScreen = function(){
-  //remove buttons
+  //Remove header if it's there
+  if (headerEl){
+    headerEl.remove();
+  }
   if (localStorage.getItem("savedInfo")){
     savedInfo = localStorage.getItem("savedInfo");
     savedInfo = JSON.parse(savedInfo);
   }
-
-  document.querySelector("#main-text").textContent ="High Scores"
+  titleEl.textContent ="High Scores"
+  
   // create list elements for stats and append to p element
   let highListEl = document.createElement("ul");
 
+  //Create list, add each person and their score to the list
   for (let i=0; i < 10; i++){
     let listEl = document.createElement("li");
     listEl.innerHTML = 
     (i+1) + ". Player intials: " + savedInfo[i].initials + "<span>" + "Score: " + savedInfo[i].highScore + "</span>";
     highListEl.appendChild(listEl);
   }  
-  buttonCollectEl.appendChild(highListEl);
+  scoreListEl.appendChild(highListEl);
+  
+  //Create go back and reset scores buttons and append to button collection
+  let goBackBtn = document.createElement("button");
+  goBackBtn.textContent = "Go Back";
+  goBackBtn.className = "btn go-back-btn"
+  let resetScoreBtn = document.createElement("button");
+  resetScoreBtn.textContent = "Reset High Scores";
+  resetScoreBtn.className = "btn reset-score-btn"
+  buttonCollectEl.style.flexDirection = "row";
+  buttonCollectEl.appendChild(goBackBtn);
+  buttonCollectEl.appendChild(resetScoreBtn);
+  
+
 };
 
 let highScoreScreenHandler = function(event){
+  //Player clicks the high score screen button
   if(event.target.matches("#high-score-btn")){
-    let removeP = document.querySelector("#begin-text");
-    removeP.remove();
+    //Remove elements. One button if at start, three more if in questions
+    textEl.remove();
     let removeBtn = document.querySelector(".btn");
     removeBtn.remove();
     if (document.querySelector(".ans-btn")){ 
@@ -275,13 +325,5 @@ buttonCollectEl.addEventListener("click", buttonHandler);
 formEl.addEventListener("submit", saveGame);
 /* 
 - put in some real JS questions
-
-- shuffle question order
-
-High Score screen
-- go back button
-- retrieves localStorage scores
-- clear high scores button
-
 
  */
