@@ -28,26 +28,61 @@ for (let i = 0; i < 10 ; i++){
 // List of questions. answerStat = true gives the correlating correct solution.
 let questionList = [
   {
-    question: "question 1 text ",
-    answers: ["answer 1 text", "answer 2 text","answer 3 text","answer 4 text"],
+    question: "let string = 'only an example'. How could one return 'ONLY AN EXAMPLE'?",
+    answers: [
+      "a) return string.toUpperCase;", 
+      "b) return string.toBigCase;",
+      "c) both of the above",
+      "d) none of the above"],
     answerStat: [true, false, false, false],
   },
   
   {
-    question: "question 2 text ",
-    answers: ["q2 answer 1 text", "q2 answer 2 text","q2 answer 3 text","q2 answer 4 text"],
+    question: "What would array.length return for the array = [1,2,3,4,5,6,7,8,9]",
+    answers: [
+      "a) The number 10 which represents the number of elements in the array.", 
+      "b) The number 9 which represents the number of elements in the array.",
+      "c) The number 8 which represents the difference of 1 and 9.",
+      "d) The number 19 which represents the number of character spaces used to define the array."],
     answerStat: [false, true, false, false],
   },
   
   {
-    question: "question 3 text ",
-    answers: ["q3 answer 1 text", "q3 answer 2 text","q3 answer 3 text","q3 answer 4 text"],
+    question: "What would array[5] return for the array = [1,2,3,4,5,6,7,8,9]",
+    answers: [
+      "a) The number 5 from the array.", 
+      "b) [1,2,3,4,5]",
+      "c) The number 6, which has an index of 5 in the array.",
+      "d) The number 15, from summing 1+2+3+4+5."],
     answerStat: [false, false, true, false],
   },
   {
-    question: "question 4 text ",
-    answers: ["q4 answer 1 text", "q4 answer 2 text","q4 answer 3 text","q4 answer 4 text"],
+    question: "What number x would I need to get array[x]=1 using the array = [1,2,3,4,5,6,7,8,9]",
+    answers: [
+      "a) x = 9", 
+      "b) x = -1 ",
+      "c) x = 1",
+      "d) x = 0"],
     answerStat: [false, false, false, true],
+  },
+
+  {
+    question: "let string = 'ONLY AN EXAMPLE'. How could one return 'only on example'?",
+    answers: [
+      "a) return string.toUpperCase;", 
+      "b) return string.toSmallCase;",
+      "c) both of the above",
+      "d) return string.toLowerCase"],
+    answerStat: [false, false, false, true],
+  },
+  {
+    question: "let string1 = 'This is ' and string2 = 'concatenation'. What would let string3 = string1.concat(string2) accomplish?",
+    answers: [
+      "a) It would store string3 ='This is concatenation'", 
+      "b) It would store string3 ='concatenationThis is '",
+      "c) It would store string3 = string1.string2",
+      "d) It would accomplish an error message."],
+    answerStat: [true, false, false, false],
   },
 ];
 
@@ -121,7 +156,7 @@ let nextQuestion = function () {
   if (questionCounter < questionList.length) {
   
     //Question text changed
-  titleEl.textContent = questionList[questionCounter].question;
+  titleEl.textContent = (questionCounter+1) + ". " + questionList[questionCounter].question;
   
   //Buttons generated for answers
   for (let i = 0; i < questionList[questionCounter].answers.length; i++) {

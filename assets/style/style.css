@@ -45,6 +45,7 @@ header p{
   font-size: 2vw;
   padding: 10px;
   border-bottom: 1.5px solid black ;
+  margin: 10px auto;
 }
 #small-text{
   text-align: center;
@@ -61,7 +62,7 @@ header p{
 .btn{
   background-color: var(--color-one);
   color: var(--color-two);
-  font-size: larger;
+  font-size: 1.5vw;
   border-radius: 8px;
 }
 
@@ -71,7 +72,7 @@ header p{
 
 /* Main Content Styling of Questions*/
 .ans-btn{
-  margin: 15px auto;
+  margin: 15px auto 15px 15px;
 }
 
 /* Main Content Styling of Player Intial Submission Screen*/
