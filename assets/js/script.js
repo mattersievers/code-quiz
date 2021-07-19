@@ -147,7 +147,6 @@ let buttonHandler = function(event) {
   if(targetEl.matches(".begin-btn")){
     shuffle(questionList);  
     beginQuiz();
-
   }
   //Click correct solution
   else if(targetEl.getAttribute("validate-answer") === "true"){
@@ -331,8 +330,5 @@ buttonCollectEl.addEventListener("click", buttonHandler);
 
 formEl.addEventListener("submit", saveGame);
 /* 
-- prevent double clicks
-
 - put in some real JS questions
-
  */
