@@ -155,7 +155,7 @@ let buttonHandler = function(event) {
     },50);
     //Delayed deleting of text, so response stays up for 700 minus 50 or 650ms
     setTimeout(function(){ 
-      document.querySelector("#response-box").textContent = ""
+      document.querySelector("#response-box").textContent = "";
       removeQuestion();
       nextQuestion();
     }, 700);
@@ -324,6 +324,8 @@ buttonCollectEl.addEventListener("click", buttonHandler);
 
 formEl.addEventListener("submit", saveGame);
 /* 
+- prevent double clicks
+
 - put in some real JS questions
 
  */
