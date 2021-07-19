@@ -44,6 +44,11 @@ let questionList = [
     answers: ["q3 answer 1 text", "q3 answer 2 text","q3 answer 3 text","q3 answer 4 text"],
     answerStat: [false, false, true, false],
   },
+  {
+    question: "question 4 text ",
+    answers: ["q4 answer 1 text", "q4 answer 2 text","q4 answer 3 text","q4 answer 4 text"],
+    answerStat: [false, false, false, true],
+  },
 ];
 
 //shuffle an array
@@ -130,7 +135,7 @@ let nextQuestion = function () {
   
   //No more questions left
   else {
-    endGame();
+      endGame();
   }
 };
 
@@ -146,6 +151,8 @@ let buttonHandler = function(event) {
   }
   //Click correct solution
   else if(targetEl.getAttribute("validate-answer") === "true"){
+    //remove true property to prevent double click
+    targetEl.setAttribute("validate-answer",false);
     //Increase score
     playerScore++;
     // Delayed confirmation response after player click
