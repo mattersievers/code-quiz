@@ -400,6 +400,3 @@ headerEl.addEventListener("click", highScoreScreenHandler);
 buttonCollectEl.addEventListener("click", buttonHandler);
 
 formEl.addEventListener("submit", saveGame);
-/* 
-- put in some real JS questions
- */
